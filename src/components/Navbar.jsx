@@ -15,24 +15,20 @@ function NavBar() {
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-end lg:w-auto text-center">
           <div className="justify-between text-sm lg:flex-grow">
-            <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-green-300 mr-4">
+            <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-green-300 mr-5">
             Home
             </Link>
-            <Link to="/about" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-green-300 mr-4">
-            About
-            </Link>
-            <Link to="/country" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-green-300 mr-4">
+            <Link to="/country" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-green-300 mr-5 ml-5">
             Countries
+            </Link>
+            <Link to="/about" className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-green-300 mr-5 ml-5">
+            About
             </Link>
           </div>
         </div>
-
         <hr />
-
       </nav>
-
       <Outlet />
-
     </>
   );
 }

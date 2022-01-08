@@ -31,15 +31,11 @@ const CovidMap = () => {
   }, []);
 
   const options = {
-    // region: '142', // Asia
-    // displayMode: 'text',
-    // legendToggle: true,
-    // title: 'World Map',
     colorAxis: { colors: ['green', 'black', 'red'] },
   };
 
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
       <h1>Covid Map</h1>
       { loading ? <Loader/> :
         <Chart 
@@ -49,18 +45,15 @@ const CovidMap = () => {
               callback: ({ chartWrapper }) => {
                 const chart = chartWrapper.getChart();
                 const selection = chart.getSelection();
-                // console.log(selection);
                 if (selection.length === 0) return;
                 const region = covidData[selection[0].row + 1];
-                // console.log(region);
-                // console.log('Selected : ' + region[0]);
                 navigate('/country', {state: { Country: region[0] }});
               },
             },
           ]}
           chartType="GeoChart"
           width="100%"
-          height="400px"
+          height="60vh"
           data={covidData}
           options={options}
         />
