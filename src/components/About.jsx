@@ -4,7 +4,7 @@ import Founders from './Founders';
 
 const About = () => {
 	return (
-		<div className='relative my-10 mx-25'>
+		<div className='mt-10 ml-24 '>
 			<div>
 				<AboutUs />
 			</div>
