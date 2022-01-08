@@ -5,14 +5,15 @@ import App from './components/App';
 import About from './components/About';
 import VaccineMap from './components/VaccineMap';
 import CovidMap from './components/CovidMap';
+import Hero from './components/Hero';
 import Styles from './stylesheets/styles.css';
 
 render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="" element={<CovidMap />} />
-        <Route path="home" element={<CovidMap />} />
+        <Route path="" element={<Hero />} />
+        <Route path="home" element={<Hero />} />
         <Route path="country" element={<VaccineMap />} />
         <Route path="about" element={<About />} />
       </Route>
