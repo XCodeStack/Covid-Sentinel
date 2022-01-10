@@ -5,24 +5,40 @@ import axios from 'axios';
 import { vaccinationOptions } from '../utils/constants';
 import Loader from './Spinner';
 import { useLocation } from 'react-router';
-import object from '../utils/isoCodes';
 import Table from './Table';
+import { isoOptions } from '../utils/constants';
+// import useIso from '../utils/useIso';
+// import object from '../utils/isoCodes';
 
 const VaccineMap = () => {
+  const { state } = useLocation();
   const [ countryData, setCountryData ] = useState([]);
   const [ loading, setLoading ] = useState(true);
-  const { state } = useLocation();
-  let iso;
-  if (!state) {
-    vaccinationOptions.params['iso'] = 'USA';
-    iso = 'USA';
-  } else {
-    const { Country } = state;
-    vaccinationOptions.params['iso'] = object[Country];
-    iso = object[Country];
-  }
+  const [ iso, setIso ] = useState();
 
   useEffect(() => {
+    if (!state) {
+      setIso('USA');
+      return;
+    }
+    axios.request(isoOptions)
+      .then((response) => response.data)
+      .then((data) => {
+        console.log(data);
+        return data.reduce(
+          (obj, item) => Object.assign(obj, { [item.Country]: item.ThreeLetterSymbol.toUpperCase() }), {});
+      })
+      .then((data) => {
+        console.log('1st useEffect - returned iso fetch', data[state['Country']]);
+        setIso(data[state['Country']]);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    console.log('2nd useEffect - this is the iso', iso);
+    if (!iso) return;
+    vaccinationOptions.params['iso'] = iso;
     axios
       .request(vaccinationOptions)
       .then((response) => response.data)
@@ -45,7 +61,7 @@ const VaccineMap = () => {
       .catch(function (error) {
         console.error(error);
       });
-  }, []);
+  }, [iso]);
 
   const options = {
   };

@@ -32,6 +32,16 @@ const countryNameToCode = {
 };
 
 
+const isoOptions = {
+  method: 'GET',
+  url: 'https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/countries-name-ordered',
+  headers: {
+    'x-rapidapi-host': VACCOVID_API_HOST,
+    'x-rapidapi-key': process.env.VACCOVID_API_KEY,
+  }
+};
+
+
 export {
   VACCOVID_API_HOST,
   VACCINATION_API_HOST,
@@ -39,4 +49,5 @@ export {
   covidOptions,
   countryCodeToName,
   countryNameToCode,
+  isoOptions,
 };
