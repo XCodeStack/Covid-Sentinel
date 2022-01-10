@@ -6,34 +6,17 @@ import { vaccinationOptions } from '../utils/constants';
 import Loader from './Spinner';
 import { useLocation } from 'react-router';
 import Table from './Table';
-import { isoOptions } from '../utils/constants';
-// import useIso from '../utils/useIso';
+// import { isoOptions } from '../utils/constants';
+import useIso from '../utils/useIso';
 // import object from '../utils/isoCodes';
 
 const VaccineMap = () => {
   const { state } = useLocation();
   const [ countryData, setCountryData ] = useState([]);
   const [ loading, setLoading ] = useState(true);
-  const [ iso, setIso ] = useState();
+  // const [ iso, setIso ] = useState();
 
-  useEffect(() => {
-    if (!state) {
-      setIso('USA');
-      return;
-    }
-    axios.request(isoOptions)
-      .then((response) => response.data)
-      .then((data) => {
-        console.log(data);
-        return data.reduce(
-          (obj, item) => Object.assign(obj, { [item.Country]: item.ThreeLetterSymbol.toUpperCase() }), {});
-      })
-      .then((data) => {
-        console.log('1st useEffect - returned iso fetch', data[state['Country']]);
-        setIso(data[state['Country']]);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const iso = useIso(state); // Custom Hook api calls for the iso code or defaults to USA
 
   useEffect(() => {
     console.log('2nd useEffect - this is the iso', iso);
