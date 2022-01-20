@@ -1,18 +1,21 @@
 const express = require('express');
 const userController = require('../controllers/userController');
-const cookieController = require('../controllers/cookieController');
 const sessionController = require('../controllers/sessionController');
-
+const cookieController = require('../controllers/cookieController');
 
 const router = express.Router();
-const { getAllUsers, signup, login } = userController;
-const { isLoggedIn, startSession } = sessionController;
-const { setSSIDCookie } = cookieController; 
+const { signup, login } = userController;
+const { setSSIDCookie } = cookieController;
+const { startSession } = sessionController;
 
+router.post('/login', login, (req, res)=>{
+  return res.status(200).json({isMatch: res.locals.isMatch});
+}); 
 
-router.get('/users', getAllUsers, (req, res) => {
-  res.status(200).json(res.locals.users); 
-});
+router.get('/users',
+  userController.getAllUsers,
+  (req, res) => res.status(200).json(res.locals.users)
+);
 
 router.post('/signup', signup, (req, res) => {
   // steps: signup middleare to add user data to database, session middleware, cookie middleware to set a cookie
