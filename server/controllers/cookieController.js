@@ -7,6 +7,7 @@ cookieController.setSSIDCookie = (req, res, next) => {
     httpOnly: true,
     maxAge: 3600000, // cookie should last one hour
   });
+  console.log(id);
   return next();
 };
 
